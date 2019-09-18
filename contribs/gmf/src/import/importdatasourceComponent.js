@@ -9,7 +9,7 @@ import gmfImportWmsCapabilityLayertreeComponent from 'gmf/import/wmsCapabilityLa
 import gmfImportWmtsCapabilityLayertreeComponent from 'gmf/import/wmtsCapabilityLayertreeComponent.js';
 
 import ngeoQueryQuerent from 'ngeo/query/Querent.js';
-import {guessServiceTypeByUrl, Type} from 'ngeo/datasource/OGC.js';
+import {guessServiceTypeByUrl} from 'ngeo/datasource/OGC.js';
 
 
 /**
@@ -69,13 +69,8 @@ function gmfImportdatasourceTemplateUrl($attrs, gmfImportdatasourceTemplateUrl) 
 }
 
 /**
- * @enum {string}
- * @hidden
+ * @typedef {'Local' | 'Online'} Mode
  */
-const Mode = {
-  LOCAL: 'Local',
-  ONLINE: 'Online'
-};
 
 
 /**
@@ -176,14 +171,14 @@ class Controller {
     this.hasErrorPromise_ = null;
 
     /**
-     * @type {string}
+     * @type {Mode}
      */
-    this.mode = Mode.ONLINE;
+    this.mode = 'Online';
 
     /**
-     * @type {string[]}
+     * @type {Mode[]}
      */
-    this.modes = [Mode.LOCAL, Mode.ONLINE];
+    this.modes = ['Local', 'Online'];
 
     /**
      * @type {boolean}
@@ -334,7 +329,7 @@ class Controller {
     const serviceType = guessServiceTypeByUrl(url);
 
     this.startWorking_();
-    if (serviceType === Type.WMS) {
+    if (serviceType === 'WMS') {
       this.ngeoQuerent_.wmsGetCapabilities(url).then(
         (wmsCapabilities) => {
           this.wmsCapabilities = wmsCapabilities;
@@ -345,7 +340,7 @@ class Controller {
           this.stopWorking_(true);
         }
       );
-    } else if (serviceType === Type.WMTS) {
+    } else if (serviceType === 'WMTS') {
       this.ngeoQuerent_.wmtsGetCapabilities(url).then(
         (wmtsCapabilities) => {
           this.wmtsCapabilities = wmtsCapabilities;

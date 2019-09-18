@@ -12,7 +12,7 @@ import ngeoPopover from 'ngeo/Popover.js';
 import ngeoDrawFeatures from 'ngeo/draw/features.js';
 
 import ngeoDatasourceGroup from 'ngeo/datasource/Group.js';
-import ngeoDatasourceOGC, {guessServiceTypeByUrl, Type} from 'ngeo/datasource/OGC.js';
+import ngeoDatasourceOGC, {guessServiceTypeByUrl} from 'ngeo/datasource/OGC.js';
 import {Permalink3dParam} from 'ngeo/olcs/constants.js';
 import ngeoFormatFeatureHash from 'ngeo/format/FeatureHash.js';
 import ngeoFormatFeatureProperties from 'ngeo/format/FeatureProperties.js';
@@ -1553,7 +1553,7 @@ PermalinkService.prototype.initExternalDataSources_ = function() {
       const getCapabilitiesDefer = this.q_.defer();
       promises.push(getCapabilitiesDefer.promise);
 
-      if (serviceType === Type.WMS) {
+      if (serviceType === 'WMS') {
         ngeoQuerent.wmsGetCapabilities(url).then(
           (capabilities) => {
             getCapabilitiesDefer.resolve({
@@ -1572,7 +1572,7 @@ PermalinkService.prototype.initExternalDataSources_ = function() {
             });
           }
         );
-      } else if (serviceType === Type.WMTS) {
+      } else if (serviceType === 'WMTS') {
         ngeoQuerent.wmtsGetCapabilities(url).then(
           (capabilities) => {
             getCapabilitiesDefer.resolve({
@@ -1608,7 +1608,7 @@ PermalinkService.prototype.initExternalDataSources_ = function() {
 
         // WMS - For each layer name, find its layer capability object, then
         //       create the data source
-        if (response.serviceType === Type.WMS) {
+        if (response.serviceType === 'WMS') {
           for (const layerName of response.groupLayerNames) {
             const layerCap = ngeoQuerent.wmsFindLayerCapability(
               response.capabilities.Capability.Layer.Layer,
@@ -1625,7 +1625,7 @@ PermalinkService.prototype.initExternalDataSources_ = function() {
             }
           }
 
-        } else if (response.serviceType === Type.WMTS) {
+        } else if (response.serviceType === 'WMTS') {
 
           // WMTS - For each layer name, find its layer capability object, then
           //        create the data source

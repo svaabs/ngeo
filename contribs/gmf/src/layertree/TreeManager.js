@@ -3,7 +3,6 @@ import {PermalinkParam} from 'gmf/index.js';
 import gmfThemeThemes, {findGroupByName, findGroupByLayerNodeName} from 'gmf/theme/Themes.js';
 import ngeoLayertreeController, {LayertreeVisitorDecision, LayertreeController} from
   'ngeo/layertree/Controller.js';
-import {MessageType} from 'ngeo/message/Message.js';
 import ngeoMessageNotification from 'ngeo/message/Notification.js';
 import ngeoStatemanagerService from 'ngeo/statemanager/Service.js';
 import * as olEvents from 'ol/events.js';
@@ -507,7 +506,7 @@ LayertreeTreeManager.prototype.notifyCantAddGroups_ = function(groups) {
     gettextCatalog.getString('groups are already loaded.');
   this.ngeoNotification_.notify({
     msg: `${names.join(', ')} ${msg}`,
-    type: MessageType.INFORMATION
+    type: 'information'
   });
 };
 

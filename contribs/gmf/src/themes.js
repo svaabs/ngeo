@@ -88,7 +88,7 @@
  *      the application.
  * @property {boolean} [editable]
  * @property {string} [style]
- * @property {string} type WMS or WMTS.
+ * @property {'WMTS' | 'WMS'} type
  * @property {string} [ogcServer]
  */
 
@@ -103,7 +103,7 @@
  * @property {import('ngeo/datasource/OGC.js').DimensionsFiltersConfig} dimensionsFilters (GmfLayer)
  * @property {boolean} [editable] (GmfLayer)
  * @property {string} [style] (GmfLayer)
- * @property {string} type (GmfLayer)
+ * @property {'WMTS' | 'WMS'} type (GmfLayer)
  * @property {GmfLayerChildLayer[]} childLayers
  * @property {string} layers The comma separated list of WMS layers or groups.
  * @property {number} maxResolutionHint The max resolution where the layer is visible.
@@ -124,7 +124,7 @@
  * @property {import('ngeo/datasource/OGC.js').DimensionsFiltersConfig} dimensionsFilters (GmfLayer)
  * @property {boolean} [editable] (GmfLayer)
  * @property {string} [style] (GmfLayer)
- * @property {string} type (GmfLayer)
+ * @property {'WMTS' | 'WMS'} type (GmfLayer)
  * @property {string} imageType 'image/png' or 'image/jpeg'.
  * @property {string} layer
  * @property {string} matrixSet

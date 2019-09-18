@@ -6,7 +6,7 @@ import gmfLayertreeTreeManager from 'gmf/layertree/TreeManager.js';
 import {isEmpty, toXY} from 'gmf/objectediting/geom.js';
 import gmfObjecteditingQuery from 'gmf/objectediting/Query.js';
 
-import gmfObjecteditingToolsComponent, {ObjecteditingProcessType} from 'gmf/objectediting/toolsComponent.js';
+import gmfObjecteditingToolsComponent from 'gmf/objectediting/toolsComponent.js';
 
 import ngeoMapLayerHelper from 'ngeo/map/LayerHelper.js';
 import {interactionDecoration as ngeoMiscDecorateInteraction} from 'ngeo/misc/decorate.js';
@@ -48,13 +48,8 @@ import 'jsts/monkey.js';
 
 
 /**
- * @enum {string}
- * @hidden
+ * @typedef {'insert' | 'update'} ObjecteditingState
  */
-const ObjecteditingState = {
-  INSERT: 'insert',
-  UPDATE: 'update'
-};
 
 
 /**
@@ -316,9 +311,9 @@ function Controller($scope, $timeout, gettextCatalog,
   this.skipGeometryChange_ = false;
 
   /**
-   * @type {string}
+   * @type {import("gmf/objectediting/toolsComponent").ProcessType}
    */
-  this.process = ObjecteditingProcessType.ADD;
+  this.process = 'add';
 
   /**
    * @type {?import("ol/layer/Image.js").default|import("ol/layer/Tile.js").default}
@@ -339,7 +334,7 @@ function Controller($scope, $timeout, gettextCatalog,
   /**
    * The state of the feature determines whether the next 'save' request
    * should be an 'insert' or 'update' one.
-   * @type {?string}
+   * @type {?ObjecteditingState}
    * @private
    */
   this.state_ = null;
@@ -476,7 +471,7 @@ Controller.prototype.$onInit = function() {
     throw new Error('Missing feature');
   }
   const geometry = this.feature.getGeometry();
-  this.state_ = geometry ? ObjecteditingState.UPDATE : ObjecteditingState.INSERT;
+  this.state_ = geometry ? 'update' : 'insert';
 
   this.scope_.$watchCollection(
     () => this.geometryChanges_,
@@ -574,14 +569,14 @@ Controller.prototype.save = function() {
     toXY(geometry);
   }
 
-  if (this.state_ === ObjecteditingState.INSERT) {
+  if (this.state_ === 'insert') {
     this.gmfEditFeature_.insertFeatures(
       this.layerNodeId,
       [feature]
     ).then(
       this.handleEditFeature_.bind(this)
     );
-  } else if (this.state_ === ObjecteditingState.UPDATE) {
+  } else if (this.state_ === 'update') {
     this.gmfEditFeature_.updateFeature(
       this.layerNodeId,
       feature
@@ -622,7 +617,7 @@ Controller.prototype.undo = function() {
  * @return {boolean} Whether the state is INSERT or not.
  */
 Controller.prototype.isStateInsert = function() {
-  return this.state_ === ObjecteditingState.INSERT;
+  return this.state_ === 'insert';
 };
 
 
@@ -640,7 +635,7 @@ Controller.prototype.handleDeleteFeature_ = function(resp) {
   }
   this.feature.setGeometry(undefined);
   this.resetGeometryChanges_();
-  this.state_ = ObjecteditingState.INSERT;
+  this.state_ = 'insert';
   this.pending = false;
   this.refreshWMSLayer_();
 };
@@ -665,9 +660,9 @@ Controller.prototype.handleEditFeature_ = function(resp) {
   this.resetGeometryChanges_();
   // (3) Update state
   if (this.feature.getGeometry()) {
-    this.state_ = ObjecteditingState.UPDATE;
+    this.state_ = 'update';
   } else {
-    this.state_ = ObjecteditingState.INSERT;
+    this.state_ = 'insert';
   }
   // (4) No longer pending
   this.pending = false;
@@ -1113,7 +1108,7 @@ Controller.prototype.handleSketchFeaturesAdd_ = function(evt) {
       const jstsSketchGeom = this.jstsOL3Parser_.read(sketchGeom);
       let jstsProcessedGeom;
 
-      if (this.process === ObjecteditingProcessType.ADD) {
+      if (this.process === 'add') {
         jstsProcessedGeom = jstsGeom.union(jstsSketchGeom);
       } else {
         if (jstsGeom.intersects(jstsSketchGeom)) {
@@ -1127,7 +1122,7 @@ Controller.prototype.handleSketchFeaturesAdd_ = function(evt) {
         this.feature.setGeometry(multiGeom.clone());
       }
 
-    } else if (this.process === ObjecteditingProcessType.ADD) {
+    } else if (this.process === 'add') {
       this.feature.setGeometry(toMulti(sketchGeom.clone()));
     }
 

@@ -1,6 +1,6 @@
 import angular from 'angular';
 import gmfLayertreeTreeManager from 'gmf/layertree/TreeManager.js';
-import gmfThemeThemes, {ThemeNodeType, getSnappingConfig} from 'gmf/theme/Themes.js';
+import gmfThemeThemes, {getSnappingConfig} from 'gmf/theme/Themes.js';
 import ngeoLayertreeController, {getFirstParentTree} from 'ngeo/layertree/Controller.js';
 import {DEFAULT_GEOMETRY_NAME} from 'ngeo/datasource/OGC.js';
 import {getUid as olUtilGetUid} from 'ol/util.js';
@@ -320,7 +320,7 @@ EditingSnappingService.prototype.unregisterAllTreeCtrl_ = function() {
  */
 EditingSnappingService.prototype.getOGCServer_ = function(treeCtrl) {
   const gmfLayer = /** @type {import('gmf/themes.js').GmfLayer} */(treeCtrl.node);
-  if (gmfLayer.type !== ThemeNodeType.WMS) {
+  if (gmfLayer.type !== 'WMS') {
     return null;
   }
   const gmfLayerWMS = /** @type {import('gmf/themes.js').GmfLayerWMS} */(gmfLayer);
@@ -371,7 +371,7 @@ EditingSnappingService.prototype.getWFSConfig_ = function(treeCtrl) {
   const gmfLayer = /** @type {import('gmf/themes.js').GmfLayer} */(treeCtrl.node);
 
   // (2)
-  if (gmfLayer.type !== ThemeNodeType.WMS) {
+  if (gmfLayer.type !== 'WMS') {
     return null;
   }
 

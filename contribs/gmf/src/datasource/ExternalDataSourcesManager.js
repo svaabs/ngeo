@@ -8,7 +8,7 @@ import ngeoMiscFile from 'ngeo/misc/File.js';
 import ngeoDatasourceDataSources from 'ngeo/datasource/DataSources.js';
 import ngeoDatasourceFile from 'ngeo/datasource/File.js';
 import ngeoDatasourceFileGroup from 'ngeo/datasource/FileGroup.js';
-import ngeoDatasourceOGC, {Type, WMSInfoFormat} from 'ngeo/datasource/OGC.js';
+import ngeoDatasourceOGC, {WMSInfoFormat} from 'ngeo/datasource/OGC.js';
 import ngeoDatasourceOGCGroup from 'ngeo/datasource/OGCGroup.js';
 import ngeoDatasourceWMSGroup from 'ngeo/datasource/WMSGroup.js';
 import {getUid as olUtilGetUid} from 'ol/util.js';
@@ -359,7 +359,7 @@ export class ExternalDatSourcesManager {
           name: layer.Name,
           queryable: queryable
         }],
-        ogcType: Type.WMS,
+        ogcType: 'WMS',
         visible: true,
         wmsUrl: url
       };
@@ -426,7 +426,7 @@ export class ExternalDatSourcesManager {
       dataSource = new ngeoDatasourceOGC({
         id: id,
         name: name,
-        ogcType: Type.WMTS,
+        ogcType: 'WMTS',
         visible: true,
         wmtsLayer: wmtsLayer,
         wmtsUrl: wmtsUrl
@@ -632,7 +632,7 @@ export class ExternalDatSourcesManager {
    * @private
    */
   removeOGCDataSource_(dataSource) {
-    if (dataSource.ogcType === Type.WMS) {
+    if (dataSource.ogcType === 'WMS') {
       // WMS data source
       if (!dataSource.wmsUrl) {
         throw new Error('Missing dataSource.wmsUrl');
@@ -651,7 +651,7 @@ export class ExternalDatSourcesManager {
           this.removeWMSGroup_(wmsGroup);
         }
       }
-    } else if (dataSource.ogcType === Type.WMTS) {
+    } else if (dataSource.ogcType === 'WMTS') {
       // WMTS data source
       if (!dataSource.wmtsUrl) {
         throw new Error('Missing dataSource.wmsUrl');

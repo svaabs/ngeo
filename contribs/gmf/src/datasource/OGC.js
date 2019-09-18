@@ -32,7 +32,7 @@ import ngeoDatasourceOGC from 'ngeo/datasource/OGC.js';
  *    are used by WFS queries.
  *    These are **not** used by the (WMTS) queries (the wmtsLayers is used by WMTS queries).
  * @property {string} [ogcServerType] The type of OGC server.
- * @property {string} [ogcType] The type data source. Can be: 'WMS' or 'WMTS'.
+ * @property {import("ngeo/datasource/OGC.js").Type} [ogcType='WMS'] The type data source. Can be: 'WMS' or 'WMTS'.
  * @property {?Object<string, Object<string, import('gmf/themes.js').GmfOgcServerAttribute>>} [ogcAttributes]
  *    The attributes of the OGC server.
  * @property {boolean} [snappable] Whether the geometry from this data source can be used to snap the geometry

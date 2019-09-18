@@ -1,7 +1,6 @@
 import './notification.css';
 import 'bootstrap/js/src/tooltip.js';
 import angular from 'angular';
-import {MessageType} from 'ngeo/message/Message.js';
 
 import ngeoMessageNotification from 'ngeo/message/Notification.js';
 
@@ -48,16 +47,16 @@ function MainController(ngeoNotification) {
 MainController.prototype.notifyMulti = function() {
   this.notification.notify([{
     msg: ['Error #', this.i_++].join(''),
-    type: MessageType.ERROR
+    type: 'error'
   }, {
     msg: ['Warning #', this.i_++].join(''),
-    type: MessageType.WARNING
+    type: 'warning'
   }, {
     msg: ['Information #', this.i_++].join(''),
-    type: MessageType.INFORMATION
+    type: 'information'
   }, {
     msg: ['Success #', this.i_++].join(''),
-    type: MessageType.SUCCESS
+    type: 'success'
   }]);
 };
 
@@ -70,7 +69,7 @@ MainController.prototype.notifyTarget = function() {
   this.notification.notify({
     msg: 'Error in an other target',
     target: '#my-messages',
-    type: MessageType.ERROR
+    type: 'error'
   });
 };
 
@@ -81,7 +80,7 @@ MainController.prototype.notifyQuick = function() {
   this.notification.notify({
     delay: 1000,
     msg: 'Lasts one second',
-    type: MessageType.SUCCESS
+    type: 'success'
   });
 };
 

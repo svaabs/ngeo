@@ -14,15 +14,8 @@ import olCollection from 'ol/Collection.js';
 
 
 /**
- * @enum {string}
- * @private
- * @hidden
+ * @typedef {'indeterminate' | 'off' | 'on'} VisibilityState
  */
-const VisibilityState = {
-  INDETERMINATE: 'indeterminate',
-  OFF: 'off',
-  ON: 'on'
-};
 
 
 /**
@@ -101,9 +94,10 @@ class Group {
   // ===================================
 
   /**
-   * @return {string} Visibility state
+   * @return {VisibilityState} Visibility state
    */
   get visibilityState() {
+    /** @type {VisibilityState} */
     let state;
 
     for (const dataSource of this.dataSources) {
@@ -112,15 +106,15 @@ class Group {
       } else {
         const otherState = this.getDataSourceState(dataSource);
         if (otherState !== state) {
-          state = VisibilityState.INDETERMINATE;
+          state = 'indeterminate';
         }
       }
-      if (state === VisibilityState.INDETERMINATE) {
+      if (state === 'indeterminate') {
         break;
       }
     }
 
-    if (typeof state != 'string') {
+    if (state === undefined) {
       throw new Error('missing state');
     }
     return state;
@@ -133,12 +127,10 @@ class Group {
 
   /**
    * @param {import("ngeo/datasource/DataSource.js").default} dataSource Data source.
-   * @return {string} Visible state of a data source
+   * @return {VisibilityState} Visible state of a data source
    */
   getDataSourceState(dataSource) {
-    return dataSource.visible ?
-      VisibilityState.ON :
-      VisibilityState.OFF;
+    return dataSource.visible ? 'on' : 'off';
   }
 
   /**
@@ -165,8 +157,7 @@ class Group {
    *
    */
   toggleVisibilityState() {
-    const visibleToSet =
-        this.visibilityState !== VisibilityState.ON;
+    const visibleToSet = this.visibilityState !== 'on';
     for (const dataSource of this.dataSources) {
       if (dataSource.visible !== visibleToSet) {
         dataSource.visible = visibleToSet;

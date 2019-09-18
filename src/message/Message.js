@@ -7,32 +7,13 @@
  * @property {string} msg The message text to display.
  * @property {JQuery|Element|string} [target] The target element (or selector to get the element) in which
  *    to display the message. If not defined, then the default target of the notification service is used.
- * @property {string} [type='info'] The type of message.
+ * @property {MessageType} [type='information'] The type of message.
  */
 
 
 /**
- * @enum {string}
- * @hidden
+ * @typedef {'error' | 'information' | 'success' | 'warning'} MessageType
  */
-export const MessageType = {
-  /**
-   * @type {string}
-   */
-  ERROR: 'error',
-  /**
-   * @type {string}
-   */
-  INFORMATION: 'information',
-  /**
-   * @type {string}
-   */
-  SUCCESS: 'success',
-  /**
-   * @type {string}
-   */
-  WARNING: 'warning'
-};
 
 
 /**
@@ -70,7 +51,7 @@ export default class {
    * @param {string|string[]} message Message or list of messages.
    */
   error(message) {
-    this.show(this.getMessageObjects(message, MessageType.ERROR));
+    this.show(this.getMessageObjects(message, 'error'));
   }
 
   /**
@@ -78,7 +59,7 @@ export default class {
    * @param {string|string[]} message Message or list of messages.
    */
   info(message) {
-    this.show(this.getMessageObjects(message, MessageType.INFORMATION));
+    this.show(this.getMessageObjects(message, 'information'));
   }
 
   /**
@@ -86,7 +67,7 @@ export default class {
    * @param {string|string[]} message Message or list of messages.
    */
   success(message) {
-    this.show(this.getMessageObjects(message, MessageType.SUCCESS));
+    this.show(this.getMessageObjects(message, 'success'));
   }
 
   /**
@@ -94,7 +75,7 @@ export default class {
    * @param {string|string[]} message Message or list of messages.
    */
   warn(message) {
-    this.show(this.getMessageObjects(message, MessageType.WARNING));
+    this.show(this.getMessageObjects(message, 'warning'));
   }
 
   /**
@@ -104,14 +85,14 @@ export default class {
    * defaults to 'information').
    * @param {string|Message|Array<string|Message>}
    *     object A message or list of messages as text or configuration objects.
-   * @param {string=} opt_type The type of message to override the messages with.
+   * @param {MessageType=} opt_type The type of message to override the messages with.
    * @return {Message[]} List of message objects.
    * @protected
    */
   getMessageObjects(object, opt_type) {
     /** @type {Message[]} */
     const msgObjects = [];
-    const defaultType = MessageType.INFORMATION;
+    const defaultType = 'information';
 
     if (typeof object === 'string') {
       msgObjects.push({

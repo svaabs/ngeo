@@ -617,17 +617,6 @@ export function getNodeMinResolution(gmfLayer) {
   return minResolution;
 }
 
-/**
- * @enum {string}
- * @hidden
- */
-export const ThemeNodeType = {
-  MIXED_GROUP: 'MixedGroup',
-  NOT_MIXED_GROUP: 'NotMixedGroup',
-  WMTS: 'WMTS',
-  WMS: 'WMS'
-};
-
 
 /**
  * @type {angular.IModule}

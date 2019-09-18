@@ -5,7 +5,6 @@ import olLayerBase from 'ol/layer/Base.js';
 import olLayerGroup from 'ol/layer/Group.js';
 import {DATALAYERGROUP_NAME} from 'gmf/index.js';
 import ngeoMapLayerHelper from 'ngeo/map/LayerHelper.js';
-import {MessageType} from 'ngeo/message/Message.js';
 import ngeoMessageDisclaimer from 'ngeo/message/Disclaimer.js';
 import ngeoMiscEventHelper from 'ngeo/misc/EventHelper.js';
 import {CollectionEvent} from 'ol/Collection.js';
@@ -22,7 +21,7 @@ import 'angular-sanitize';
  * @property {string} msg The message text to display.
  * @property {JQuery|Element|string} [target] The target element (or selector to get the element) in which
  *    to display the message. If not defined, then the default target of the notification service is used.
- * @property {string} [type='info'] The type of message.
+ * @property {import('ngeo/message/Message').MessageType} [type='information'] The type of message.
  * @property {string} [layerUid] The layer ID
  */
 
@@ -306,7 +305,7 @@ DisclaimerController.prototype.showDisclaimerMessage_ = function(layerUid, msg) 
       msg: msg,
       layerUid: layerUid,
       target: this.element_,
-      type: MessageType.WARNING
+      type: 'warning'
     };
     if (this.popup) {
       options.popup = this.popup;
@@ -396,7 +395,7 @@ DisclaimerController.prototype.closeDisclaimerMessage_ = function(layerUid, msg)
       msg: msg,
       layerUid: layerUid,
       target: this.element_,
-      type: MessageType.WARNING
+      type: 'warning'
     };
     if (this.popup) {
       options.popup = this.popup;

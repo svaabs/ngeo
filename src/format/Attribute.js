@@ -10,7 +10,7 @@ import ngeoFormatAttributeType from 'ngeo/format/AttributeType.js';
  *
  * @typedef {Object} AttributeBase
  * @property {string} [geomType]
- * @property {string} [numType]
+ * @property {'float' | 'integer'} [numType]
  * @property {string} [type]
  */
 
@@ -21,7 +21,7 @@ import ngeoFormatAttributeType from 'ngeo/format/AttributeType.js';
  * extends AttributeBase
  * @typedef {Object} Attribute
  * @property {string} [geomType] (AttributeBase)
- * @property {string} [numType] (AttributeBase)
+ * @property {'float' | 'integer'} [numType] (AttributeBase)
  * @property {string} [type] (AttributeBase)
  * @property {string[]} [choices] The list of possible values for the attribute.
  * @property {number} [maxLength] Specifies the maximum number of character for the attribute value.

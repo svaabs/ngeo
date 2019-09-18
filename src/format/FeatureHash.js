@@ -1,5 +1,4 @@
 import ngeoFormatFeatureProperties from 'ngeo/format/FeatureProperties.js';
-import ngeoFormatFeatureHashStyleType from 'ngeo/format/FeatureHashStyleType.js';
 import {rgbArrayToHex} from 'ngeo/utils.js';
 import {asArray as asColorArray} from 'ol/color.js';
 import olFeature from 'ol/Feature.js';
@@ -18,6 +17,10 @@ import olStyleStroke from 'ol/style/Stroke.js';
 import olStyleStyle from 'ol/style/Style.js';
 import olStyleText from 'ol/style/Text.js';
 import Geometry from 'ol/geom/Geometry.js';
+
+/**
+ * @typedef {'LineString' | 'Point' | 'Polygon'} GeometryStyleType
+ */
 
 
 /**
@@ -57,17 +60,17 @@ const DEFAULT_ACCURACY = 0.1;
 
 
 /**
- * @type {Object<import("ol/geom/GeometryType.js").default, import("ngeo/format/FeatureHashStyleType.js").default>}
+ * @type {Object<import("ol/geom/GeometryType.js").default, GeometryStyleType>}
  * @private
  * @hidden
  */
-const StyleTypes_ = {
-  'LineString': ngeoFormatFeatureHashStyleType.LINE_STRING,
-  'Point': ngeoFormatFeatureHashStyleType.POINT,
-  'Polygon': ngeoFormatFeatureHashStyleType.POLYGON,
-  'MultiLineString': ngeoFormatFeatureHashStyleType.LINE_STRING,
-  'MultiPoint': ngeoFormatFeatureHashStyleType.POINT,
-  'MultiPolygon': ngeoFormatFeatureHashStyleType.POLYGON
+const STYLE_TYPES = {
+  'LineString': 'LineString',
+  'Point': 'Point',
+  'Polygon': 'Polygon',
+  'MultiLineString': 'LineString',
+  'MultiPoint': 'Point',
+  'MultiPolygon': 'Polygon'
 };
 
 
@@ -540,23 +543,23 @@ function encodeNumber_(num) {
  * @hidden
  */
 function encodeStyles_(styles, geometryType, encodedStyles) {
-  const styleType = StyleTypes_[geometryType];
+  const styleType = STYLE_TYPES[geometryType];
   console.assert(styleType !== undefined);
   for (const style of styles) {
     const fillStyle = style.getFill();
     const imageStyle = style.getImage();
     const strokeStyle = style.getStroke();
     const textStyle = style.getText();
-    if (styleType == ngeoFormatFeatureHashStyleType.POLYGON) {
+    if (styleType == 'Polygon') {
       if (fillStyle !== null) {
         encodeStylePolygon_(
           fillStyle, strokeStyle, encodedStyles);
       }
-    } else if (styleType == ngeoFormatFeatureHashStyleType.LINE_STRING) {
+    } else if (styleType == 'LineString') {
       if (strokeStyle !== null) {
         encodeStyleLine_(strokeStyle, encodedStyles);
       }
-    } else if (styleType == ngeoFormatFeatureHashStyleType.POINT) {
+    } else if (styleType == 'Point') {
       if (imageStyle !== null) {
         encodeStylePoint_(imageStyle, encodedStyles);
       }

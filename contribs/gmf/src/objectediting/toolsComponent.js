@@ -32,13 +32,8 @@ import {getUid as olUtilGetUid} from 'ol/util.js';
 
 
 /**
- * @enum {string}
- * @hidden
+ * @typedef {'add' | 'delete'} ProcessType
  */
-export const ObjecteditingProcessType = {
-  ADD: 'add',
-  DELETE: 'delete'
-};
 
 
 /**
@@ -198,7 +193,7 @@ function Controller($injector, $scope, ngeoToolActivateMgr) {
   this.queryableLayerInfo = null;
 
   /**
-   * @type {?string}
+   * @type {?ProcessType}
    */
   this.process = null;
 
@@ -245,16 +240,14 @@ function Controller($injector, $scope, ngeoToolActivateMgr) {
    */
   this.drawActive = false;
 
-  this.registerTool_('drawActive',
-    ObjecteditingProcessType.ADD);
+  this.registerTool_('drawActive', 'add');
 
   /**
    * @type {boolean}
    */
   this.eraseActive = false;
 
-  this.registerTool_('eraseActive',
-    ObjecteditingProcessType.DELETE);
+  this.registerTool_('eraseActive', 'delete');
 
   /**
    * @type {boolean}
@@ -275,14 +268,11 @@ function Controller($injector, $scope, ngeoToolActivateMgr) {
   this.triangleRadius = oeToolsOptions.regularPolygonRadius !== undefined ?
     oeToolsOptions.regularPolygonRadius : 100;
 
-  this.registerTool_('drawTriangleActive',
-    ObjecteditingProcessType.ADD);
+  this.registerTool_('drawTriangleActive', 'add');
 
-  this.registerTool_('copyFromActive',
-    ObjecteditingProcessType.ADD, true);
+  this.registerTool_('copyFromActive', 'add', true);
 
-  this.registerTool_('deleteFromActive',
-    ObjecteditingProcessType.DELETE, true);
+  this.registerTool_('deleteFromActive', 'delete', true);
 
   $scope.$on('$destroy', this.handleDestroy_.bind(this));
 }
@@ -320,7 +310,7 @@ Controller.prototype.$onInit = function() {
  *    that only one tool can be active at a time
  *
  * @param {string} toolActiveName The name of the active property for the tool.
- * @param {string} process The behavior the tool should use when active
+ * @param {ProcessType} process The behavior the tool should use when active
  *     and when sketch features are added.
  * @param {boolean=} opt_requiresLayer Whether the tool requires the queryable
  *     layer or not. Defaults to `false`.
@@ -349,7 +339,7 @@ Controller.prototype.registerTool_ = function(
 
 /**
  * Called when any of the tool 'active' property changes.
- * @param {string} process The behavior the tool should use when active.
+ * @param {ProcessType} process The behavior the tool should use when active.
  * @param {boolean} requiresLayer Whether the tool requires the queryable
  *     layer or not.
  * @param {boolean|undefined} newVal New value.

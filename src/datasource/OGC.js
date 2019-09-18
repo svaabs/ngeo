@@ -27,13 +27,8 @@ export const ServerType = {
 
 /**
  * Available OGC types.
- * @enum {string}
- * @hidden
+ * @typedef {'WMTS' | 'WMS'} Type
  */
-export const Type = {
-  WMS: 'WMS',
-  WMTS: 'WMTS'
-};
 
 
 /**
@@ -103,7 +98,7 @@ export const WMSInfoFormat = {
  * @property {WFSLayer[]} [wfsLayers] A list of layer definitions that are used by WFS queries.
  *    These are **not** used by the (WMTS) queries (the wmtsLayers is used by WMTS queries).
  * @property {string} [ogcServerType] The type of OGC server.
- * @property {string} [ogcType] The type data source. Can be: 'WMS' or 'WMTS'.
+ * @property {Type} [ogcType='WMS'] The type data source. Can be: 'WMS' or 'WMTS'.
  * @property {?Object<string, Object<string, import('gmf/themes.js').GmfOgcServerAttribute>>} [ogcAttributes]
  *    The attributes of the OGC server.
  * @property {boolean} [snappable] Whether the geometry from this data source can be used to snap the geometry
@@ -317,10 +312,10 @@ class OGC extends ngeoDatasourceDataSource {
 
     /**
      * The type data source. Can be: 'WMS' or 'WMTS'.
-     * @type {string}
+     * @type {Type}
      * @private
      */
-    this.ogcType_ = options.ogcType || Type.WMS;
+    this.ogcType_ = options.ogcType || 'WMS';
 
     /**
      * The attributes of the OGC server.
@@ -640,7 +635,7 @@ class OGC extends ngeoDatasourceDataSource {
   }
 
   /**
-   * @return {string} OGC type
+   * @return {Type} OGC type
    */
   get ogcType() {
     return this.ogcType_;
@@ -1075,19 +1070,15 @@ class OGC extends ngeoDatasourceDataSource {
 /**
  * Guess the type of OGC service from a given url. Default returned value is WMS.
  * @param {string} url Url
- * @return {string} Guessed OGC service type.
+ * @return {Type} Guessed OGC service type.
  * @hidden
  */
 export function guessServiceTypeByUrl(url) {
-  let type;
-
   if (/(wmts)/i.test(url)) {
-    type = Type.WMTS;
+    return 'WMTS';
   } else {
-    type = Type.WMS;
+    return 'WMS';
   }
-
-  return type;
 }
 
 

@@ -2,7 +2,7 @@ import angular from 'angular';
 import 'bootstrap/js/src/alert.js';
 
 import ngeoMessagePopup, {MessagePopup} from 'ngeo/message/Popup.js';
-import ngeoMessageMessage, {MessageType} from 'ngeo/message/Message.js';
+import ngeoMessageMessage from 'ngeo/message/Message.js';
 import 'ngeo/sass/font.scss';
 
 
@@ -16,7 +16,7 @@ import 'ngeo/sass/font.scss';
  * @property {string} [layerUid] The OpenLayers layer identifier.
  * @property {JQuery|Element|string} [target] The target element (or selector to get the element) in which
  *    to display the message. If not defined, then the default target of the notification service is used.
- * @property {string} [type='info'] The type of message.
+ * @property {import('ngeo/message/Message').MessageType} [type='information'] The type of message.
  */
 
 
@@ -154,16 +154,16 @@ export class MessageDisclaimerService extends ngeoMessageMessage {
       // display the message using a bootstrap dismissible alert
       const classNames = ['alert', 'fade', 'alert-dismissible', 'show'];
       switch (type) {
-        case MessageType.ERROR:
+        case 'error':
           classNames.push('alert-danger');
           break;
-        case MessageType.INFORMATION:
+        case 'information':
           classNames.push('alert-info');
           break;
-        case MessageType.SUCCESS:
+        case 'success':
           classNames.push('alert-success');
           break;
-        case MessageType.WARNING:
+        case 'warning':
           classNames.push('alert-warning');
           break;
         default:

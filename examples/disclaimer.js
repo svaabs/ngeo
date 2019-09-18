@@ -3,7 +3,6 @@ import 'bootstrap/js/src/tooltip.js';
 import angular from 'angular';
 import ngeoMessageDisclaimer from 'ngeo/message/Disclaimer.js';
 
-import {MessageType} from 'ngeo/message/Message.js';
 import olMap from 'ol/Map.js';
 import olView from 'ol/View.js';
 import olLayerTile from 'ol/layer/Tile.js';
@@ -126,7 +125,7 @@ MainController.prototype.inMap = function() {
     this.disclaimer.alert({
       msg: message,
       target: '#disclaimers-in-map',
-      type: MessageType.WARNING
+      type: 'warning'
     });
   });
 };
@@ -140,28 +139,28 @@ MainController.prototype.closeAll = function() {
 
   this.disclaimer.close({
     msg: this.successMsg_,
-    type: MessageType.SUCCESS
+    type: 'success'
   });
 
   this.disclaimer.close({
     msg: this.infoMsg_,
-    type: MessageType.INFORMATION
+    type: 'information'
   });
 
   this.disclaimer.close({
     msg: this.warningMsg_,
-    type: MessageType.WARNING
+    type: 'warning'
   });
 
   this.disclaimer.close({
     msg: this.errorMsg_,
-    type: MessageType.ERROR
+    type: 'error'
   });
 
   this.inMapMsgs_.forEach((message) => {
     this.disclaimer.close({
       msg: message,
-      type: MessageType.WARNING
+      type: 'warning'
     });
   });
 

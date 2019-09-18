@@ -4,22 +4,6 @@ import olFormatXML from 'ol/format/XML.js';
 
 
 /**
- * @enum {string}
- * @hidden
- */
-export const FormatNumberType = {
-  /**
-   * @type {string}
-   */
-  FLOAT: 'float',
-  /**
-   * @type {string}
-   */
-  INTEGER: 'integer'
-};
-
-
-/**
  * Reads attributes that are defined in XSD format and return them as a list.
  * @private
  * @hidden
@@ -199,10 +183,10 @@ class XSDAttribute extends olFormatXML {
       attribute.type = ngeoFormatAttributeType.TIME;
     } else if (type === 'xsd:decimal' || type === 'xsd:double') {
       attribute.type = ngeoFormatAttributeType.NUMBER;
-      attribute.numType = FormatNumberType.FLOAT;
+      attribute.numType = 'float';
     } else if (type === 'xsd:integer') {
       attribute.type = ngeoFormatAttributeType.NUMBER;
-      attribute.numType = FormatNumberType.INTEGER;
+      attribute.numType = 'integer';
     } else if (type === 'xsd:string') {
       attribute.type = ngeoFormatAttributeType.TEXT;
     }

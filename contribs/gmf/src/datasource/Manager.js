@@ -3,10 +3,10 @@ import GmfDatasourceOGC from 'gmf/datasource/OGC.js';
 import gmfDatasourceWFSAliases from 'gmf/datasource/WFSAliases.js';
 import gmfLayertreeSyncLayertreeMap, {getLayer} from 'gmf/layertree/SyncLayertreeMap.js';
 import gmfLayertreeTreeManager from 'gmf/layertree/TreeManager.js';
-import gmfThemeThemes, {ThemeNodeType} from 'gmf/theme/Themes.js';
+import gmfThemeThemes from 'gmf/theme/Themes.js';
 import gmfOGC from 'gmf/datasource/OGC.js';
 
-import OGC, {ServerType, WFSOutputFormat, Type} from 'ngeo/datasource/OGC.js';
+import OGC, {ServerType, WFSOutputFormat} from 'ngeo/datasource/OGC.js';
 import ngeoDatasourceDataSources from 'ngeo/datasource/DataSources.js';
 
 import ngeoFilterRuleHelper from 'ngeo/filter/RuleHelper.js';
@@ -475,7 +475,7 @@ export class DatasourceManager {
     let ogcImageType;
     let timeProperty;
 
-    if (ogcType === ThemeNodeType.WMTS) {
+    if (ogcType === 'WMTS') {
       // (3) Manage WMTS
       const gmfLayerWMTS = /** @type {import('gmf/themes.js').GmfLayerWMTS} */(gmfLayer);
 
@@ -509,7 +509,7 @@ export class DatasourceManager {
         ogcServer = ogcServers[meta.ogcServer];
       }
       ogcImageType = gmfLayerWMTS.imageType;
-    } else if (ogcType === ThemeNodeType.WMS) {
+    } else if (ogcType === 'WMS') {
       // (4) Manage WMS
       const gmfLayerWMS = /** @type {import('gmf/themes.js').GmfLayerWMS} */(gmfLayer);
 
@@ -712,9 +712,7 @@ export class DatasourceManager {
     let timeLowerValueWatcherUnregister;
     let timeUpperValueWatcherUnregister;
     let wmsLayer;
-    if (dataSource.timeProperty &&
-        dataSource.ogcType === Type.WMS
-    ) {
+    if (dataSource.timeProperty && dataSource.ogcType === 'WMS') {
       timeLowerValueWatcherUnregister = this.rootScope_.$watch(
         () => dataSource.timeLowerValue,
         this.handleDataSourceTimeValueChange_.bind(this, dataSource)
@@ -947,9 +945,7 @@ export class DatasourceManager {
     // Skip data sources that are not filtrables OR those that do not have
     // the WMS ogcType, i.e. those that do not have an OpenLayers layer
     // to update
-    if (dataSource.filtrable !== true ||
-        dataSource.ogcType !== Type.WMS
-    ) {
+    if (dataSource.filtrable !== true || dataSource.ogcType !== 'WMS') {
       return;
     }
 

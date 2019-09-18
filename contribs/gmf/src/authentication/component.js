@@ -1,6 +1,5 @@
 import angular from 'angular';
 import gmfAuthenticationService from 'gmf/authentication/Service.js';
-import {MessageType} from 'ngeo/message/Message.js';
 import ngeoMessageNotification from 'ngeo/message/Notification.js';
 
 import ngeoMessageModalComponent from 'ngeo/message/modalComponent.js';
@@ -326,7 +325,7 @@ class AuthenticationController {
             this.changePasswordReset();
             this.setError_(
               [gettextCatalog.getString('Your password has successfully been changed.')],
-              MessageType.INFORMATION
+              'information'
             );
           })
           .catch((err) => {
@@ -414,12 +413,12 @@ class AuthenticationController {
 
   /**
    * @param {string|string[]} errors Errors.
-   * @param {MessageType} [messageType] Type.
+   * @param {import('ngeo/message/Message.js').MessageType} [messageType] Type.
    * @private
    */
   setError_(errors, messageType) {
     if (messageType == undefined) {
-      messageType = MessageType.ERROR;
+      messageType = 'error';
     }
     if (this.error) {
       this.resetError_();
