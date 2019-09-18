@@ -51,15 +51,6 @@ import {CollectionEvent} from 'ol/Collection.js';
 
 
 /**
- * @enum {string}
- * @hidden
- */
-export const OpenLayersLayerProperties = {
-  OPACITY: 'opacity'
-};
-
-
-/**
  * External data source separators
  * @enum {string}
  * @hidden
