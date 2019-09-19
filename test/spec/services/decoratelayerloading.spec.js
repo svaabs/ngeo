@@ -17,16 +17,16 @@ describe('ngeo.misc.DecorateLayerLoading test suite', () => {
     const imageSource = new olSourceImage({
       projection: undefined, // should be removed in next OL version
     });
-    const layer = new olLayerImage({source: imageSource});
+    const layer = /** @type {import('ol/layer/Base.js').default} */(new olLayerImage({source: imageSource}));
     const lg_1 = new olLayerGroup();
     const lg_2 = new olLayerGroup();
 
-    layerLoading(/** @type {import('ol/layer/Base.js').default} */(layer), scope);
-    layerLoading(/** @type {import('ol/layer/Base.js').default} */(lg_1), scope);
-    layerLoading(/** @type {import('ol/layer/Base.js').default} */(lg_2), scope);
+    layerLoading(layer, scope);
+    layerLoading(/** @type {import('ol/layer/Base.js').default} */(/** @type {any} */(lg_1)), scope);
+    layerLoading(/** @type {import('ol/layer/Base.js').default} */(/** @type {any} */(lg_2)), scope);
 
-    lg_1.getLayers().insertAt(0, /** @type {import('ol/layer/Base.js').default} */(layer));
-    lg_2.getLayers().insertAt(0, /** @type {import('ol/layer/Base.js').default} */(lg_1));
+    lg_1.getLayers().insertAt(0, layer);
+    lg_2.getLayers().insertAt(0, /** @type {import('ol/layer/Base.js').default} */(/** @type {any} */(lg_1)));
 
     expect(layer.get('load_count')).toBe(0);
     expect(lg_1.get('load_count')).toBe(0);

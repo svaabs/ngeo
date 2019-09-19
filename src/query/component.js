@@ -206,26 +206,16 @@ class QueryController {
         );
         if (this.ngeoQueryOptions_.cursorHover) {
           this.listenerKeys_.push(
-            olEventsListen(
-              this.map,
-              'pointermove',
-              this.handleMapPointerMove_,
-              this
-            )
+            olEventsListen(this.map, 'pointermove', this.handleMapPointerMove_, this)
           );
         }
         break;
 
       case ngeoQueryMode.DRAW_BOX:
-        this.map.addLayer(this.vectorLayer_);
+        this.map.addLayer(/** @type {import('ol/layer/Base.js').default} */(this.vectorLayer_));
         this.map.addInteraction(this.drawBoxInteraction_);
         this.listenerKeys_.push(
-          olEventsListen(
-            this.drawBoxInteraction_,
-            'drawend',
-            this.handleDrawBoxInteractionDrawEnd_,
-            this
-          )
+          olEventsListen(this.drawBoxInteraction_, 'drawend', this.handleDrawBoxInteractionDrawEnd_, this)
         );
         break;
 

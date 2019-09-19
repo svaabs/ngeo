@@ -112,7 +112,7 @@ describe('ngeo.map.BackgroundLayerMgr', () => {
     });
 
     it('unsets the background layer', () => {
-      const layer = new olLayerTile();
+      const layer = /** @type {import('ol/layer/Base.js').default} */(new olLayerTile());
       ngeoBackgroundLayerMgr.set(map, layer);
       // @ts-ignore
       ngeoBackgroundLayerMgr.set(map, null);
@@ -130,7 +130,7 @@ describe('ngeo.map.BackgroundLayerMgr', () => {
     });
 
     it('returns the current background layer', () => {
-      const expectedLayer = new olLayerTile();
+      const expectedLayer = /** @type {import('ol/layer/Base.js').default} */(new olLayerTile());
       ngeoBackgroundLayerMgr.set(map, expectedLayer);
       const layer = ngeoBackgroundLayerMgr.get(map);
       expect(layer).toBe(expectedLayer);
@@ -142,9 +142,9 @@ describe('ngeo.map.BackgroundLayerMgr', () => {
     });
 
     it('returns the current opacity background layer', () => {
-      const activeBgLayer = new olLayerTile();
+      const activeBgLayer = /** @type {import('ol/layer/Base.js').default} */(new olLayerTile());
       ngeoBackgroundLayerMgr.set(map, activeBgLayer);
-      const opacityBgLayer = new olLayerTile();
+      const opacityBgLayer = /** @type {import('ol/layer/Base.js').default} */(new olLayerTile());
       ngeoBackgroundLayerMgr.setOpacityBgLayer(map, opacityBgLayer);
       const layer = ngeoBackgroundLayerMgr.getOpacityBgLayer(map);
       expect(layer).toBe(opacityBgLayer);
