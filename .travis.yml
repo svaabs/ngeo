@@ -52,6 +52,7 @@ before_script:
 
 script:
 # Lint
+- npm list
 - make lint
 - make spell
 - make check-examples-checker
@@ -62,6 +63,7 @@ script:
 - buildtools/test_examples.py 1/1
 #- npm run typecheck
 # Generate API doc
+- npm list
 - "! (npm run typecheck|grep -v '^node_modules/'|grep '^[a-z]')"
 - npm run doc
 - npm run build-api
