@@ -216,11 +216,7 @@ class Map {
           getFeaturesFromCoordinates(layer, event.coordinate, resolution).then((feature) => {
             if (feature) {
               this.vectorSource_.addFeature(feature);
-              const featureId = feature.getId();
-              if (featureId === undefined) {
-                throw new Error('Missing feature ID');
-              }
-              this.selectObject(featureId, true);
+              this.selectObject(feature.getId(), event.coordinate, true);
             }
           });
         }
@@ -392,16 +388,17 @@ class Map {
 
   /**
    * @param {string|number} id Identifier.
+   * @param {import("ol/coordinate.js").Coordinate} position
    * @param {boolean} table Display all properties in a table
    */
-  selectObject(id, table = false) {
+  selectObject(id, position = null, table = false) {
     const feature = this.vectorSource_.getFeatureById(id);
     if (feature) {
       const point = feature.getGeometry();
       if (!(point instanceof Point)) {
         throw new Error('Wrong geometry type');
       }
-      const coordinates = point.getCoordinates();
+      position = point.getCoordinates();
       const geometryName = feature.getGeometryName();
       const properties = feature.getProperties();
       let contentHTML = '';
@@ -429,7 +426,7 @@ class Map {
         throw new Error('Missing content');
       }
       content.innerHTML = contentHTML;
-      this.overlay_.setPosition(coordinates);
+      this.overlay_.setPosition(position);
     }
   }
 

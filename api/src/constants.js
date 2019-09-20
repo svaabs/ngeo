@@ -32,5 +32,5 @@ export default /** @type {APIConfig} */({
   backgroundLayer: 'orthophoto',
 
   // The list of layers (names) that can be queried on mouse click
-  queryableLayers: ['osm_open', 'many_attributes']
+  queryableLayers: ['osm_open', 'many_attributes', 'polygon']
 });
