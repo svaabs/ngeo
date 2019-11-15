@@ -142,3 +142,12 @@ i, cite, em, var, address, dfn {
   text-align: left;
   padding: 0.25rem 0.5rem;
 }
+
+.custom-spinner-loading svg {
+  fill: red;
+  height: 3rem;
+}
+
+.custom-spinner-generic svg {
+  fill: black;
+}
