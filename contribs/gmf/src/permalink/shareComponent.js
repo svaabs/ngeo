@@ -168,6 +168,11 @@ class ShareComponentController {
     /**
      * @type {boolean}
      */
+    this.isFinishedState = true;
+
+    /**
+     * @type {boolean}
+     */
     this.errorOnGetShortUrl = false;
 
     this.getShortUrl();
@@ -192,12 +197,19 @@ class ShareComponentController {
    */
   sendShortUrl() {
     // @ts-ignore: scope...
+
+    this.errorOnsend = false;
+    this.successfullySent = false;
+    this.isFinishedState = false;
+
     if (this.$scope_.gmfShareForm.$valid) {
       this.$q_.when(this.gmfShareService_.sendShortUrl(this.permalink_, this.email, this.message))
         .then((resp) => {
           this.successfullySent = true;
+          this.isFinishedState = true;
         }, (resp) => {
           this.errorOnsend = true;
+          this.isFinishedState = true;
         });
     }
   }
