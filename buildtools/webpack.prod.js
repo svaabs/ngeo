@@ -4,12 +4,14 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 const resourcesRule = {
   test: /\.(jpeg|png|ico|cur|eot|ttf|woff|woff2)$/,
-  use: {
-    loader: 'file-loader',
-    options: {
-      name: '[name].[hash:6].[ext]'
+  use: [
+    {
+      loader: 'file-loader',
+      options: {
+        name: '[name].[hash:6].[ext]'
+      }
     }
-  }
+  ]
 };
 
 const svgRule = {

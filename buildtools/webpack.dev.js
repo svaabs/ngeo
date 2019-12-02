@@ -4,12 +4,14 @@ process.traceDeprecation = true;
 
 const resourcesRule = {
   test: /\.(jpeg|png|ico|cur|eot|ttf|woff|woff2)$/,
-  use: {
-    loader: 'file-loader',
-    options: {
-      name: '[name].[ext]'
-    },
-  }
+  use: [
+    {
+      loader: 'file-loader',
+      options: {
+        name: '[name].[ext]'
+      },
+    }
+  ]
 };
 
 const svgRule = {
