@@ -17,6 +17,11 @@
       <%=require('gmf/icons/spinner.svg?viewbox')%>
     </i>
   </div>
+  <div class="request-spinner" ng-hide="mainCtrl.printActive || queryGridActive || mainCtrl.loading" gmf-loader-spinner>
+    <i class="fa custom-spinner-loading fa-spin">
+      <%=require('gmf/icons/spinner.svg?viewbox')%>
+    </i>
+  </div>
   <header>
     <div class="logo">
       <span></span>

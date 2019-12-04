@@ -12,6 +12,7 @@ import ngeoMapswipeModule from 'ngeo/map/swipe.js';
 import ngeoDrawFeatures from 'ngeo/draw/features.js';
 import ngeoMiscToolActivate from 'ngeo/misc/ToolActivate.js';
 import ngeoQueryPanelComponent from 'ngeo/query/panelComponent.js';
+import gmfSpinnerModule from 'gmf/spinner/module.js';
 import gmfImportModule from 'gmf/import/module.js';
 import olCollection from 'ol/Collection.js';
 import {listen} from 'ol/events.js';
@@ -293,6 +294,7 @@ const module = angular.module('GmfAbstractDesktopControllerModule', [
   gmfRasterComponent.name,
   ngeoDrawFeatures.name,
   gmfImportModule.name,
+  gmfSpinnerModule.name,
   ngeoMapswipeModule.name
 ]);
 
