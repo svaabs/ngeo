@@ -177,7 +177,7 @@ class DrawFeatureOptionsController {
      * @private
      */
     this.snapInteraction_ = new OLInteractionSnap({
-      // @ts-ignore: webpack
+      // @ts-ignore: handleEvent option missing in ol
       handleEvent: this.snapInteractionHandleEvent_.bind(this),
       pixelTolerance: 10000,
       source: this.snapSource_
